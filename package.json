@@ -1,0 +1,23 @@
+{
+  "name": "typescript-bank",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "compile":"tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LIhDi/typescript-bank.git"
+  },
+  "author": "LihDi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LIhDi/typescript-bank/issues"
+  },
+  "homepage": "https://github.com/LIhDi/typescript-bank#readme",
+  "devDependencies": {
+    "typescript": "^2.3.2"
+  }
+}
