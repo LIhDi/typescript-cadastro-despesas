@@ -1,14 +1,4 @@
-class NegociacoesView {
-
-    private _elemento: Element;
-
-    constructor(selector: string) {
-        this._elemento = document.querySelector(selector);
-    }
-
-    update(negociacoes: Negociacoes): void {
-        this._elemento.innerHTML = this.template(negociacoes);
-    }
+class NegociacoesView extends View<Negociacoes> {
 
     template(negociacoes: Negociacoes): string {
 
@@ -22,19 +12,15 @@ class NegociacoesView {
                     <th>VOLUME</th>
                 </tr>
             </thead>
-
             <tbody>
                 ${negociacoes.paraArray().map(negociacao =>
-                    `
-                        <tr>
-                            <td>${negociacao.data.getDate()}/${negociacao.data.getMonth()+1}/${negociacao.data.getFullYear()}</td>
-                            <td>${negociacao.quantidade}</td>
-                            <td>${negociacao.valor}</td>
-                            <td>${negociacao.volume}</td>
-                        </tr>
-                    `).join('')}
+                `<tr>
+                    <td>${negociacao.data.getDate()}/${negociacao.data.getMonth()+1}/${negociacao.data.getFullYear()}</td>
+                    <td>${negociacao.quantidade}</td>
+                    <td>${negociacao.valor}</td>
+                    <td>${negociacao.volume}</td>
+                </tr>`).join('')}
             </tbody>
-
             <tfoot>
             </tfoot>
         </table>
