@@ -1,7 +1,5 @@
-import { DespesasView } from '../views/DespesasView';
-import { MensagemView } from '../views/MensagemView';
-import { Despesas } from '../models/Despesas';
-import { Despesa } from '../models/Despesa';
+import { DespesasView, MensagemView } from '../views/index';
+import { Despesas, Despesa } from '../models/index';
 
 export class DespesaController {
 
