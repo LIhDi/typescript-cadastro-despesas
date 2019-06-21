@@ -1,4 +1,6 @@
-class Despesas {
+import { Despesa } from './Despesa';
+
+export class Despesas {
 
     private _despesas: Despesa[] = [];
 

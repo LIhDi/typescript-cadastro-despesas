@@ -1,4 +1,9 @@
-class DespesaController {
+import { DespesasView } from '../views/DespesasView';
+import { MensagemView } from '../views/MensagemView';
+import { Despesas } from '../models/Despesas';
+import { Despesa } from '../models/Despesa';
+
+export class DespesaController {
 
     private _inputData: JQuery;
     private _inputQuantidade: JQuery;

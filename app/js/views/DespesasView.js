@@ -1,6 +1,17 @@
-class DespesasView extends View {
-    template(despesas) {
-        return `
+System.register(["./View"], function (exports_1, context_1) {
+    "use strict";
+    var __moduleName = context_1 && context_1.id;
+    var View_1, DespesasView;
+    return {
+        setters: [
+            function (View_1_1) {
+                View_1 = View_1_1;
+            }
+        ],
+        execute: function () {
+            DespesasView = class DespesasView extends View_1.View {
+                template(despesas) {
+                    return `
         <table class="table table-hover table-bordered">
             <thead>
                 <tr>
@@ -22,5 +33,9 @@ class DespesasView extends View {
             </tfoot>
         </table>
         `;
-    }
-}
+                }
+            };
+            exports_1("DespesasView", DespesasView);
+        }
+    };
+});

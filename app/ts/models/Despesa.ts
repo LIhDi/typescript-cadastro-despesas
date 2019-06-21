@@ -1,4 +1,4 @@
-class Despesa {
+export class Despesa {
 
     constructor( private _data: Date, private _quantidade: number, private _valor: number) {
     }
