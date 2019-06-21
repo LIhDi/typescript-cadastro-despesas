@@ -1,5 +1,5 @@
-class NegociacoesView extends View {
-    template(negociacoes) {
+class DespesasView extends View {
+    template(despesas) {
         return `
         <table class="table table-hover table-bordered">
             <thead>
@@ -7,15 +7,15 @@ class NegociacoesView extends View {
                     <th>DATA</th>
                     <th>QUANTIDADE</th>
                     <th>VALOR</th>
-                    <th>VOLUME</th>
+                    <th>TOTAL</th>
                 </tr>
             </thead>
             <tbody>
-                ${negociacoes.paraArray().map(negociacao => `<tr>
-                    <td>${negociacao.data.getDate()}/${negociacao.data.getMonth() + 1}/${negociacao.data.getFullYear()}</td>
-                    <td>${negociacao.quantidade}</td>
-                    <td>${negociacao.valor}</td>
-                    <td>${negociacao.volume}</td>
+                ${despesas.paraArray().map(despesa => `<tr>
+                    <td>${despesa.data.getDate()}/${despesa.data.getMonth() + 1}/${despesa.data.getFullYear()}</td>
+                    <td>${despesa.quantidade}</td>
+                    <td>${despesa.valor}</td>
+                    <td>${despesa.total}</td>
                 </tr>`).join('')}
             </tbody>
             <tfoot>

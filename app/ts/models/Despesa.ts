@@ -1,4 +1,4 @@
-class Negociacao {
+class Despesa {
 
     constructor( private _data: Date, private _quantidade: number, private _valor: number) {
     }
@@ -12,7 +12,7 @@ class Negociacao {
     get valor(){
         return this._valor;
     }
-    get volume() {
+    get total() {
         return this._quantidade * this._valor;
     }
 }
