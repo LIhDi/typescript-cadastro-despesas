@@ -1,20 +1,26 @@
 import { DespesasView, MensagemView } from '../views/index';
 import { Despesas, Despesa } from '../models/index';
+import { domInject } from '../helpers/decorators/index';
 
 export class DespesaController {
 
+    // Tiramos do construtor para na hora de carregarmos o Controller não pegar todos os elementos do dom
+    // O objetivo é o DespesaController vai injetar o _inputData e transforma-lo em um getter e dentro desse getter ele vai a funcionalidade
+    // De que se for acessado a primeira vez, ir no Dom e pegar, se alguem acessar novamente já vai ser retornado, ou seja , lazyLoader
+    @domInject('#data')
     private _inputData: JQuery;
+
+    @domInject('#quantidade')
     private _inputQuantidade: JQuery;
+
+    @domInject('#valor')
     private _inputValor: JQuery;
+
     private _despesas = new Despesas();
     private _despesasView = new DespesasView('#despesasView');
     private _mensagemView = new MensagemView('#mensagemView');
 
         constructor() {
-
-            this._inputData = $('#data');
-            this._inputQuantidade = $('#quantidade');
-            this._inputValor = $('#valor');
             this._despesasView.update(this._despesas);
         }
 
