@@ -22,6 +22,14 @@ export class DespesaController {
 
         event.preventDefault();
 
+        let data = new Date(this._inputData.val().replace(/-/g, ','));
+
+        if(!this._ehDiaUtil(data)) {
+
+            this._mensagemView.update('Somente negociações em dias úteis, por favor!');
+            return
+        }
+
         const despesa = new Despesa(
             new Date(this._inputData.val().replace(/-/g, ',')),
             parseInt(this._inputQuantidade.val()),
@@ -32,4 +40,21 @@ export class DespesaController {
         this._despesasView.update(this._despesas);
         this._mensagemView.update('Despesa adicionada com sucesso');
     }
+
+    private _ehDiaUtil(data: Date) {
+
+        return data.getDay() != DiaDaSemana.Sabado && data.getDay() != DiaDaSemana.Domingo;
+    }
+}
+
+enum DiaDaSemana {
+    // Enum Domingo começa com 2, Segunda com 3
+    // Domingo = 2
+    Domingo,
+    Segunda,
+    Terca,
+    Quarta,
+    Quinta,
+    Sexta,
+    Sabado,
 }
