@@ -1,3 +1,4 @@
+import { logarTempoDeExecucao } from '../helpers/decorators/index';
 
 // Usamos o export para podermos exportar os arquivos e colocar todos no index.js
 export abstract class View<T> {
@@ -12,7 +13,9 @@ export abstract class View<T> {
         this. _escapar = escapar;
         this._elemento = $(selector);
     }
-
+    // O ts suporta o uso experimental do decorator
+    // Com o decorator eu posso executar uma modificação antes e depois do metodo
+    @logarTempoDeExecucao()
     update(model: T) {
         let template = this.template(model);
         if(this._escapar)

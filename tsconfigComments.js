@@ -12,3 +12,5 @@ removeComments = true
 include = "app/ts/**/*"
 // Não aceita que variaveis recebam null ou undefined.
 strictNullChecks = TextTrackCueList
+// Para habilitar o uso experimental do decorator
+experimentalDecorators = true
