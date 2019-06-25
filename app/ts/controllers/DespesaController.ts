@@ -1,6 +1,7 @@
 import { DespesasView, MensagemView } from '../views/index';
 import { Despesas, Despesa } from '../models/index';
 import { domInject } from '../helpers/decorators/index';
+import { DespesaParcial } from '../models/index';
 
 export class DespesaController {
 
@@ -50,6 +51,27 @@ export class DespesaController {
     private _ehDiaUtil(data: Date) {
 
         return data.getDay() != DiaDaSemana.Sabado && data.getDay() != DiaDaSemana.Domingo;
+    }
+
+
+    importarDados() {
+        function isOK(res: Response) {
+            if(res.ok) {
+                return res;
+            } else {
+                throw new Error(res.statusText);
+            }
+        }
+        fetch('https://8080-e4a014ea-cc70-4a21-ad54-108bd1365801.ws-us0.gitpod.io/dados')
+            .then(res => isOK(res))
+            .then(res => res.json())
+            .then((dados: DespesaParcial[]) => {
+                dados
+                    .map(dado => new Despesa(new Date(), dado.vezes, dado.montante))
+                    .forEach(despesa => this._despesas.adiciona(despesa));
+                this._despesasView.update(this._despesas);
+            })
+            .catch(err => console.log(err.message));
     }
 }
 

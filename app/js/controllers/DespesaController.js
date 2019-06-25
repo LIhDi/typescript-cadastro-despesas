@@ -43,6 +43,26 @@ System.register(["../views/index", "../models/index", "../helpers/decorators/ind
                 _ehDiaUtil(data) {
                     return data.getDay() != DiaDaSemana.Sabado && data.getDay() != DiaDaSemana.Domingo;
                 }
+                importarDados() {
+                    function isOK(res) {
+                        if (res.ok) {
+                            return res;
+                        }
+                        else {
+                            throw new Error(res.statusText);
+                        }
+                    }
+                    fetch('https://8080-e4a014ea-cc70-4a21-ad54-108bd1365801.ws-us0.gitpod.io/dados')
+                        .then(res => isOK(res))
+                        .then(res => res.json())
+                        .then((dados) => {
+                        dados
+                            .map(dado => new index_2.Despesa(new Date(), dado.vezes, dado.montante))
+                            .forEach(despesa => this._despesas.adiciona(despesa));
+                        this._despesasView.update(this._despesas);
+                    })
+                        .catch(err => console.log(err.message));
+                }
             };
             __decorate([
                 index_3.domInject('#data')

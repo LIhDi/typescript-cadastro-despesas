@@ -11,6 +11,7 @@ System.register(["./controllers/DespesaController"], function (exports_1, contex
         execute: function () {
             controller = new DespesaController_1.DespesaController();
             $('.form').submit(controller.adiciona.bind(controller));
+            $('#botao-importa').click(controller.importarDados.bind(controller));
         }
     };
 });
