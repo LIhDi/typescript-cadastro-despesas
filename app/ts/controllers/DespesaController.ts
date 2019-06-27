@@ -1,6 +1,6 @@
 import { DespesasView, MensagemView } from '../views/index';
 import { Despesas, Despesa } from '../models/index';
-import { domInject } from '../helpers/decorators/index';
+import { domInject, evitarMultiplosCliques} from '../helpers/decorators/index';
 import { DespesaParcial } from '../models/index';
 
 export class DespesaController {
@@ -24,10 +24,8 @@ export class DespesaController {
         constructor() {
             this._despesasView.update(this._despesas);
         }
-
-        adiciona(event: Event) {
-
-        event.preventDefault();
+        @evitarMultiplosCliques()
+        adiciona() {
 
         let data = new Date(this._inputData.val().replace(/-/g, ','));
 
@@ -53,7 +51,7 @@ export class DespesaController {
         return data.getDay() != DiaDaSemana.Sabado && data.getDay() != DiaDaSemana.Domingo;
     }
 
-
+    @evitarMultiplosCliques()
     importarDados() {
         function isOK(res: Response) {
             if(res.ok) {
