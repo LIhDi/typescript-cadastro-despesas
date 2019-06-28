@@ -23,6 +23,6 @@ export abstract class View<T> {
 
         this._elemento.html(this.template(model));
     }
-
+    // A classe filha tem que implementar
     abstract template(model: T): string;
 }

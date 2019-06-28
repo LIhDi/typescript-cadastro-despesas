@@ -2,7 +2,8 @@ import { DespesasView, MensagemView } from '../views/index';
 import { Despesas, Despesa } from '../models/index';
 import { domInject, evitarMultiplosCliques} from '../helpers/decorators/index';
 import { DespesaParcial } from '../models/index';
-import { DespesaService } from '../services/index';
+import { DespesaService, HandlerFunction } from '../services/index';
+import { imprime } from '../helpers/index';
 
 export class DespesaController {
 
@@ -38,6 +39,7 @@ export class DespesaController {
             return
         }
 
+
         const despesa = new Despesa(
             new Date(this._inputData.val().replace(/-/g, ',')),
             parseInt(this._inputQuantidade.val()),
@@ -45,6 +47,9 @@ export class DespesaController {
         );
 
         this._despesas.adiciona(despesa);
+
+        imprime(despesa, this._despesas);
+
         this._despesasView.update(this._despesas);
         this._mensagemView.update('Despesa adicionada com sucesso');
     }
@@ -56,7 +61,8 @@ export class DespesaController {
 
     @evitarMultiplosCliques()
     importarDados() {
-        function isOK(res: Response) {
+        // Criamos uma variavel do tipo HandlerFunction que recebe uma funcao e obrigatoriamente essa funcao deve retornar uma Response
+        const isOK: HandlerFunction = (res: Response) => {
             if(res.ok) {
                 return res;
             } else {

@@ -1,4 +1,4 @@
-System.register(["../views/index", "../models/index", "../helpers/decorators/index", "../services/index"], function (exports_1, context_1) {
+System.register(["../views/index", "../models/index", "../helpers/decorators/index", "../services/index", "../helpers/index"], function (exports_1, context_1) {
     "use strict";
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -7,7 +7,7 @@ System.register(["../views/index", "../models/index", "../helpers/decorators/ind
         return c > 3 && r && Object.defineProperty(target, key, r), r;
     };
     var __moduleName = context_1 && context_1.id;
-    var index_1, index_2, index_3, index_4, DespesaController, DiaDaSemana;
+    var index_1, index_2, index_3, index_4, index_5, DespesaController, DiaDaSemana;
     return {
         setters: [
             function (index_1_1) {
@@ -21,6 +21,9 @@ System.register(["../views/index", "../models/index", "../helpers/decorators/ind
             },
             function (index_4_1) {
                 index_4 = index_4_1;
+            },
+            function (index_5_1) {
+                index_5 = index_5_1;
             }
         ],
         execute: function () {
@@ -40,6 +43,7 @@ System.register(["../views/index", "../models/index", "../helpers/decorators/ind
                     }
                     const despesa = new index_2.Despesa(new Date(this._inputData.val().replace(/-/g, ',')), parseInt(this._inputQuantidade.val()), parseFloat(this._inputValor.val()));
                     this._despesas.adiciona(despesa);
+                    index_5.imprime(despesa, this._despesas);
                     this._despesasView.update(this._despesas);
                     this._mensagemView.update('Despesa adicionada com sucesso');
                 }
@@ -47,14 +51,14 @@ System.register(["../views/index", "../models/index", "../helpers/decorators/ind
                     return data.getDay() != DiaDaSemana.Sabado && data.getDay() != DiaDaSemana.Domingo;
                 }
                 importarDados() {
-                    function isOK(res) {
+                    const isOK = (res) => {
                         if (res.ok) {
                             return res;
                         }
                         else {
                             throw new Error(res.statusText);
                         }
-                    }
+                    };
                     this._service
                         .obterNegociacoes(isOK)
                         .then(despesas => {
