@@ -2,6 +2,7 @@ import { DespesasView, MensagemView } from '../views/index';
 import { Despesas, Despesa } from '../models/index';
 import { domInject, evitarMultiplosCliques} from '../helpers/decorators/index';
 import { DespesaParcial } from '../models/index';
+import { DespesaService } from '../services/index';
 
 export class DespesaController {
 
@@ -20,6 +21,8 @@ export class DespesaController {
     private _despesas = new Despesas();
     private _despesasView = new DespesasView('#despesasView');
     private _mensagemView = new MensagemView('#mensagemView');
+
+    private _service = new DespesaService();
 
         constructor() {
             this._despesasView.update(this._despesas);
@@ -60,16 +63,13 @@ export class DespesaController {
                 throw new Error(res.statusText);
             }
         }
-        fetch('https://8080-e4a014ea-cc70-4a21-ad54-108bd1365801.ws-us0.gitpod.io/dados')
-            .then(res => isOK(res))
-            .then(res => res.json())
-            .then((dados: DespesaParcial[]) => {
-                dados
-                    .map(dado => new Despesa(new Date(), dado.vezes, dado.montante))
-                    .forEach(despesa => this._despesas.adiciona(despesa));
+        this._service
+        .obterNegociacoes(isOK)
+            .then(despesas => {
+                despesas.forEach(despesa =>
+                    this._despesas.adiciona(despesa));
                 this._despesasView.update(this._despesas);
-            })
-            .catch(err => console.log(err.message));
+            });
     }
 }
 

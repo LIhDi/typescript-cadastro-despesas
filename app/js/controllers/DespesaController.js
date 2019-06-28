@@ -1,4 +1,4 @@
-System.register(["../views/index", "../models/index", "../helpers/decorators/index"], function (exports_1, context_1) {
+System.register(["../views/index", "../models/index", "../helpers/decorators/index", "../services/index"], function (exports_1, context_1) {
     "use strict";
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -7,7 +7,7 @@ System.register(["../views/index", "../models/index", "../helpers/decorators/ind
         return c > 3 && r && Object.defineProperty(target, key, r), r;
     };
     var __moduleName = context_1 && context_1.id;
-    var index_1, index_2, index_3, DespesaController, DiaDaSemana;
+    var index_1, index_2, index_3, index_4, DespesaController, DiaDaSemana;
     return {
         setters: [
             function (index_1_1) {
@@ -18,6 +18,9 @@ System.register(["../views/index", "../models/index", "../helpers/decorators/ind
             },
             function (index_3_1) {
                 index_3 = index_3_1;
+            },
+            function (index_4_1) {
+                index_4 = index_4_1;
             }
         ],
         execute: function () {
@@ -26,6 +29,7 @@ System.register(["../views/index", "../models/index", "../helpers/decorators/ind
                     this._despesas = new index_2.Despesas();
                     this._despesasView = new index_1.DespesasView('#despesasView');
                     this._mensagemView = new index_1.MensagemView('#mensagemView');
+                    this._service = new index_4.DespesaService();
                     this._despesasView.update(this._despesas);
                 }
                 adiciona() {
@@ -51,16 +55,12 @@ System.register(["../views/index", "../models/index", "../helpers/decorators/ind
                             throw new Error(res.statusText);
                         }
                     }
-                    fetch('https://8080-e4a014ea-cc70-4a21-ad54-108bd1365801.ws-us0.gitpod.io/dados')
-                        .then(res => isOK(res))
-                        .then(res => res.json())
-                        .then((dados) => {
-                        dados
-                            .map(dado => new index_2.Despesa(new Date(), dado.vezes, dado.montante))
-                            .forEach(despesa => this._despesas.adiciona(despesa));
+                    this._service
+                        .obterNegociacoes(isOK)
+                        .then(despesas => {
+                        despesas.forEach(despesa => this._despesas.adiciona(despesa));
                         this._despesasView.update(this._despesas);
-                    })
-                        .catch(err => console.log(err.message));
+                    });
                 }
             };
             __decorate([
