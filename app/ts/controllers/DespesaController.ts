@@ -59,21 +59,27 @@ export class DespesaController {
         return data.getDay() != DiaDaSemana.Sabado && data.getDay() != DiaDaSemana.Domingo;
     }
 
-    @evitarMultiplosCliques()
     importarDados() {
-        // Criamos uma variavel do tipo HandlerFunction que recebe uma funcao e obrigatoriamente essa funcao deve retornar uma Response
-        const isOK: HandlerFunction = (res: Response) => {
-            if(res.ok) {
-                return res;
-            } else {
-                throw new Error(res.statusText);
-            }
-        }
         this._service
-        .obterNegociacoes(isOK)
-            .then(despesas => {
-                despesas.forEach(despesa =>
+            .obterDespesas(res => {
+
+                if(res.ok) {
+                    return res;
+                } else {
+                    throw new Error(res.statusText);
+                }
+            })
+            .then(despesasParaImportar => {
+
+                const despesasJaImportadas = this._despesas.paraArray();
+
+                despesasParaImportar
+                    .filter(despesa =>
+                        !despesasJaImportadas.some(jaImportada =>
+                            despesa.ehIgual(jaImportada)))
+                    .forEach(despesa =>
                     this._despesas.adiciona(despesa));
+
                 this._despesasView.update(this._despesas);
             });
     }

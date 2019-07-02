@@ -10,7 +10,7 @@ System.register(["../models/index"], function (exports_1, context_1) {
         ],
         execute: function () {
             DespesaService = class DespesaService {
-                obterNegociacoes(handler) {
+                obterDespesas(handler) {
                     return fetch('http://localhost:8080/dados')
                         .then(res => handler(res))
                         .then(res => res.json())

@@ -1,7 +1,7 @@
-import { Imprimivel } from './Imprimivel';
 import { Despesa } from './Despesa';
+import { MeuObjeto } from './MeuObjeto';
 
-export class Despesas extends Imprimivel {
+export class Despesas implements MeuObjeto<Despesas>{
 
     private _despesas: Despesa[] = [];
 
@@ -18,5 +18,8 @@ export class Despesas extends Imprimivel {
     paraTexto(): void {
         console.log('-- paraTexto --');
         console.log(JSON.stringify(this._despesas));
+    }
+    ehIgual(despesas: Despesas): boolean {
+        return JSON.stringify(this._despesas) == JSON.stringify(despesas.paraArray)
     }
 }

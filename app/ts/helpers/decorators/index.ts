@@ -1,3 +1,3 @@
 export * from './logarTempoDeExecucao';
-export * from './domInject'
-export * from './evitarMultiplosCliques'
+export * from './domInject';
+export * from './evitarMultiplosCliques';

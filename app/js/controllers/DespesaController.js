@@ -51,18 +51,20 @@ System.register(["../views/index", "../models/index", "../helpers/decorators/ind
                     return data.getDay() != DiaDaSemana.Sabado && data.getDay() != DiaDaSemana.Domingo;
                 }
                 importarDados() {
-                    const isOK = (res) => {
+                    this._service
+                        .obterDespesas(res => {
                         if (res.ok) {
                             return res;
                         }
                         else {
                             throw new Error(res.statusText);
                         }
-                    };
-                    this._service
-                        .obterNegociacoes(isOK)
-                        .then(despesas => {
-                        despesas.forEach(despesa => this._despesas.adiciona(despesa));
+                    })
+                        .then(despesasParaImportar => {
+                        const despesasJaImportadas = this._despesas.paraArray();
+                        despesasParaImportar
+                            .filter(despesa => !despesasJaImportadas.some(jaImportada => despesa.ehIgual(jaImportada)))
+                            .forEach(despesa => this._despesas.adiciona(despesa));
                         this._despesasView.update(this._despesas);
                     });
                 }
@@ -79,9 +81,6 @@ System.register(["../views/index", "../models/index", "../helpers/decorators/ind
             __decorate([
                 index_3.evitarMultiplosCliques()
             ], DespesaController.prototype, "adiciona", null);
-            __decorate([
-                index_3.evitarMultiplosCliques()
-            ], DespesaController.prototype, "importarDados", null);
             exports_1("DespesaController", DespesaController);
             (function (DiaDaSemana) {
                 DiaDaSemana[DiaDaSemana["Domingo"] = 0] = "Domingo";

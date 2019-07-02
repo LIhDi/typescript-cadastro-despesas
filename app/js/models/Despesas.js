@@ -1,17 +1,12 @@
-System.register(["./Imprimivel"], function (exports_1, context_1) {
+System.register([], function (exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
-    var Imprimivel_1, Despesas;
+    var Despesas;
     return {
-        setters: [
-            function (Imprimivel_1_1) {
-                Imprimivel_1 = Imprimivel_1_1;
-            }
-        ],
+        setters: [],
         execute: function () {
-            Despesas = class Despesas extends Imprimivel_1.Imprimivel {
+            Despesas = class Despesas {
                 constructor() {
-                    super(...arguments);
                     this._despesas = [];
                 }
                 adiciona(despesa) {
@@ -23,6 +18,9 @@ System.register(["./Imprimivel"], function (exports_1, context_1) {
                 paraTexto() {
                     console.log('-- paraTexto --');
                     console.log(JSON.stringify(this._despesas));
+                }
+                ehIgual(despesas) {
+                    return JSON.stringify(this._despesas) == JSON.stringify(despesas.paraArray);
                 }
             };
             exports_1("Despesas", Despesas);
